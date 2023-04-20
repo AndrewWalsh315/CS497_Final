@@ -1,28 +1,20 @@
-import numpy as np
+import os
 from PIL import Image
 
 # Specify the path to the dataset folder
-data_folder = 'path/to/fingerprint/dataset/folder'
+dataset_path = 'Desktop/dataset_FVC2000_DB4_B'
 
-# Initialize empty arrays to hold the images and corresponding labels
-images = np.empty((800, 288, 384), dtype=np.uint8)
-labels = np.empty((800,), dtype=np.int32)
+# Specify the path to the real_data folder
+real_data_path = os.path.join(dataset_path, 'real_data')
 
-# Loop over each image in the dataset folder and extract the image data and label
+# Loop over each image in the real_data folder and display it
 for i in range(1, 801):
-    # Read the image data from file
-    image_path = data_folder + '/DB4_B/' + str(i) + '.bmp'
-    image = np.array(Image.open(image_path), dtype=np.uint8)
+    # Construct the image filename
+    image_filename = os.path.join(real_data_path, 'db4_b_' + str(i) + '.bmp')
     
-    # Add the image data to the images array
-    images[i-1] = image
+    # Load the image using PIL
+    image = Image.open(image_filename)
     
-    # Extract the label from the image filename
-    label = int((i-1)/8) + 1
-    
-    # Add the label to the labels array
-    labels[i-1] = label
-    
-# Print the shape of the images and labels arrays
-print('Images shape:', images.shape)
-print('Labels shape:', labels.shape)
+    # Display the image using PIL
+    image.show()
+
